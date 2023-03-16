@@ -69,7 +69,7 @@ border-radius:9px;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);</string>
+       <string notr="true"/>
       </property>
       <property name="title">
        <string>Ajout</string>

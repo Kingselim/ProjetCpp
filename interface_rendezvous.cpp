@@ -56,16 +56,24 @@ void interface_rendezvous::on_btajouterrdv_clicked()
     int num_visite=ui->numv->text().toInt();
     QString adresse_visite=ui->adressev->currentText();
     int etat=ui->etat->currentText().toInt();
+    if (ui->numv->text().isEmpty()||ui->timeEdit->time().hour()<9||ui->timeEdit->time().hour()>18||!ui->numv->text().contains(QRegExp("^[0-9]+$")))
+    {
+        QMessageBox::critical(nullptr,QObject::tr("NOT OK"),
+                                              QObject::tr("ajout non effectué. Service fermé ou num incorrect\n"
+                                                          "Click Cancel to exit."),QMessageBox::Cancel);
+    }
+    else
+    {
+        rdv r(id,matricule,date_visite,heure_visite,num_visite,adresse_visite,etat);
+        bool test=r.ajouter();
 
-    rdv r(id,matricule,date_visite,heure_visite,num_visite,adresse_visite,etat);
-    bool test=r.ajouter();
-
-       if(test)
-       {QMessageBox::information(nullptr,QObject::tr("OK"),
-                                 QObject::tr("ajout avec succes"));}
-       else QMessageBox::critical(nullptr,QObject::tr("NOT OK"),
-                                  QObject::tr("ajout non effectué.\n"
-                                              "Click Cancel to exit."),QMessageBox::Cancel);
+           if(test)
+           {QMessageBox::information(nullptr,QObject::tr("OK"),
+                                     QObject::tr("ajout avec succes"));}
+           else QMessageBox::critical(nullptr,QObject::tr("NOT OK"),
+                                      QObject::tr("ajout non effectué.\n"
+                                                  "Click Cancel to exit."),QMessageBox::Cancel);
+    }
 refresh();
 }
 

@@ -253,3 +253,5 @@ QStringList rdv::listAdresse_visite()
 
     return list;
 }
+
+
